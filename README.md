@@ -23,3 +23,7 @@ Step 3: Admins can collect data about the employees who fell for the trap using 
 2. Ensure Maven (apache-maven-3.8.4) is installed
 3. Run "mvn clean install" in the root folder to build the project
 4. Run "mvn spring-boot:run" to start the server. The server will listen at port 8080 on localhost
+
+OR
+
+Just use the already deployed app as mentioned in the previous section
