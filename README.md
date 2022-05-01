@@ -9,7 +9,7 @@ This project mainly aims to increase phishing awareness by providing a customize
 - With this tool, an organization can set up a customised phishing website that looks very similar to the organization's website in order to evaluate the level of cybersecurity awareness among its employees. Once the website is setup, the admin can send emails with the link to the phishing website to the employees in the organization with one click. A REST API endpoint is exposed to show which employee actually clicks the link and logins on the phishing website. Once it is known which users are not that aware of possible cybersecurity attacks, the organization can spend resources to train them.
 
 ## How to use?
-This project is essentially a web app which has been deployed here: https://announcement-admin.herokuapp.com/
+This project is essentially a web app which has been deployed here: https://announcement-admin.herokuapp.com/ (NOTE THAT INITIALLY THE APP MIGHT LOAD A LITTLE SLOWLY)
 Note that one can download the code and run the app on local machine as well although that would require JDK 11 and Maven installed. The steps to run the application on a local machine are provided in one of the following sections.
 
 Step 1: As an admin who is responsible for carrying out the entire exercise of evaluating cybersescurity awareness, you will go to https://announcement-admin.herokuapp.com/admin-console and enter the emails of all the employees that need to be evaluated. In the message section, enter the email body. Include a link to the fake website set up that looks exactly like the organization's website to increase the likelihood of people falling for this. 
